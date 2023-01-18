@@ -1,5 +1,5 @@
 const accessKey = 'sFkV2gLfNxq6x8aqTrIUwr501AtrAB5V8IQ5ACxIXZ4';
-const photosUrl = `https://api.unsplash.com/photos/random?client_id=${accessKey}&count=5`;
+const photosUrl = `https://api.unsplash.com/photos/random?client_id=${accessKey}&count=15`;
 const gallery = document.querySelector('.gallery');
 
 const loader = document.querySelector('.loader-overlay');
