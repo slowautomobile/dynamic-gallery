@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Custom scripts -->
+    <script defer src="js/app.js"></script>
+    <title>Unsplash API</title>
+  </head>
+
+  <body>
+
+    <div class="loader-overlay">
+      <span class="loader"></span>
+    </div>
+    <header id="view-buttons">
+      <button id="listBtn" class="view-btn"><i class="fa-solid fa-list"></i></button>
+      <button id="gridBtn" class="view-btn active"><i class="fa-solid fa-border-all"></i></button>
+    </header>
+
+    <div class="main">
+      <div class="gallery grid"></div>
+      <div class="image-modal hide"></div>
+    </div>
+
+  </body>
+
+</html>
