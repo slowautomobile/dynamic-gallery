@@ -43,7 +43,9 @@ getImages();
 
 const displayImages = function (data) {
   data.forEach((image, i) => {
-    /* gallery.innerHTML += `
+    /* Elements are not recognized after iteration
+
+    gallery.innerHTML += `
       <div class="img-container">
       <img src="${image.urls.small}" alt="${
       image.alt_description ? image.alt_description : defaultAltDescription
@@ -60,7 +62,8 @@ const displayImages = function (data) {
         </a>
         </div>
         </div>
-        `; */
+        `; 
+    */
 
     let imgContainer = document.createElement('div');
     imgContainer.classList.add('img-container');
