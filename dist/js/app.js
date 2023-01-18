@@ -2,10 +2,10 @@ const accessKey = 'sFkV2gLfNxq6x8aqTrIUwr501AtrAB5V8IQ5ACxIXZ4';
 const photosUrl = `https://api.unsplash.com/photos/random?client_id=${accessKey}&count=5`;
 const gallery = document.querySelector('.gallery');
 
+const loader = document.querySelector('.loader-overlay');
+
 const listBtn = document.getElementById('listBtn');
 const gridBtn = document.getElementById('gridBtn');
-
-var loadLock = false;
 
 const showList = () => {
   listBtn.classList.add('active');
@@ -29,22 +29,17 @@ gridBtn.addEventListener('click', showGrid);
 let allImagesArray;
 const defaultAltDescription = 'Image from Unsplash.com';
 
-let galleryLoaded = '';
-
 const getImages = () => {
+  loader.classList.remove('hide');
   fetch(photosUrl)
     .then(response => response.json())
     .then(data => {
       allImagesArray = data;
       displayImages(allImagesArray);
-      // console.log(allImagesArray);
     });
-  loadLock = false;
 };
 
 getImages();
-
-const allImages = [];
 
 const displayImages = function (data) {
   data.forEach((image, i) => {
@@ -90,26 +85,12 @@ const displayImages = function (data) {
     `;
 
     let currentImage = document.getElementById(`img-${i}`);
-    // allImages.push(currentImage);
-    // console.log(allImages);
     currentImage.addEventListener('click', () => {
       displayModal(image);
-      console.log(image);
     });
-    // gallery.children.item(i).addEventListener('click', () => {
-    //   displayModal(image);
-    // });
-    // for (const item of gallery.children) {
-    //   item.addEventListener('click', () => {
-    //     displayModal(image);
-    //   });
-    // }
   });
+  loader.classList.add('hide');
 };
-
-// console.log(allImages);
-
-// let galleryItems = addEventListener('click', displayModal(image));
 
 const displayModal = image => {
   const imageModalContainer = document.querySelector('.image-modal');
@@ -181,23 +162,19 @@ const displayModal = image => {
     </div>
     `;
 
-  // document.title = `${image.alt_description}`;
-  // imageModalContainer.classList.remove('hide');
-
   let closeModalBtn = document.getElementById('close-btn');
   closeModalBtn.addEventListener('click', () => {
     imageModalContainer.classList.add('hide');
   });
 };
 
-// window.addEventListener('scroll', () => {
-//   let y = window.scrollY;
-//   let loadHeight = document.body.scrollHeight * 0.6;
+function infiniteScroll() {
+  const endOfPage =
+    window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
 
-//   if (loadLock == false && y >= loadHeight) {
-//     // load data
-//     // pagenumber++;
-//     loadLock = true; // locks any more loading
-//     getImages();
-//   }
-// });
+  if (endOfPage) {
+    getImages();
+  }
+}
+
+window.addEventListener('scroll', infiniteScroll);
