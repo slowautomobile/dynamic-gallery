@@ -93,6 +93,8 @@ function displayModal(image) {
 }
 
 function displayImages(data) {
+  let tempImagesFragment = new DocumentFragment();
+
   data.forEach(image => {
     let imgContainer = document.createElement('div');
     imgContainer.classList.add('img-container');
@@ -115,14 +117,17 @@ function displayImages(data) {
     </div>
     `;
 
-    gallery.append(imgContainer);
+    tempImagesFragment.append(imgContainer);
     imgCounter++;
-
+    
     let currentImage = document.getElementById(`img-${imgCounter}`);
     currentImage.addEventListener('click', () => {
       displayModal(image);
     });
   });
+  
+  gallery.append(tempImagesFragment);
+
   loader.classList.add('hide');
 }
 
