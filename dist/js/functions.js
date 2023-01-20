@@ -102,7 +102,7 @@ function displayImages(data) {
     <img src="${image.urls.small}" alt="${
       image.alt_description ? image.alt_description : defaultAltDescription
     }" class="image">
-    <div id="img-${i}" class="overlay">
+    <div id="img-${imgCounter}" class="overlay">
     <i class="fa-solid fa-expand"></i>
     <a href="${image.user.links.html}" class="author-wrapper">
     <img class="profile-pic-small" src="${
@@ -116,12 +116,13 @@ function displayImages(data) {
     `;
 
     gallery.append(imgContainer);
-    imgCounter++;
-
+    
     let currentImage = document.getElementById(`img-${imgCounter}`);
     currentImage.addEventListener('click', () => {
       displayModal(image);
     });
+    
+    imgCounter++;
   });
   loader.classList.add('hide');
 }
