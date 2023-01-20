@@ -14,26 +14,6 @@ function showGrid() {
   gallery.classList.remove('list');
 }
 
-function infiniteScroll() {
-  const endOfPage =
-    window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-
-  if (endOfPage) {
-    getImages();
-  }
-}
-function displayModal(image) {
-  const imageModalContainer = document.querySelector('.image-modal');
-  imageModalContainer.classList.remove('hide');
-
-  imageModalContainer.innerHTML = renderModal(image);
-
-  let closeModalBtn = document.getElementById('close-btn');
-  closeModalBtn.addEventListener('click', () => {
-    imageModalContainer.classList.add('hide');
-  });
-}
-
 function renderModal(image) {
   return `
     <i id="close-btn" class="fa-solid fa-xmark"></i>
@@ -100,31 +80,45 @@ function renderModal(image) {
   `;
 }
 
+function displayModal(image) {
+  const imageModalContainer = document.querySelector('.image-modal');
+  imageModalContainer.classList.remove('hide');
+
+  imageModalContainer.innerHTML = renderModal(image);
+
+  let closeModalBtn = document.getElementById('close-btn');
+  closeModalBtn.addEventListener('click', () => {
+    imageModalContainer.classList.add('hide');
+  });
+}
+
 function displayImages(data) {
-  data.forEach((image, i) => {
+  data.forEach(image => {
     let imgContainer = document.createElement('div');
     imgContainer.classList.add('img-container');
-    imgContainer.id = `img-${i}`;
-    gallery.append(imgContainer);
+    imgContainer.id = `img-${imgCounter}`;
 
     imgContainer.innerHTML = `
-        <img src="${image.urls.small}" alt="${
+    <img src="${image.urls.small}" alt="${
       image.alt_description ? image.alt_description : defaultAltDescription
     }" class="image">
-          <div id="img-${i}" class="overlay">
-          <i class="fa-solid fa-expand"></i>
-          <a href="${image.user.links.html}" class="author-wrapper">
-          <img class="profile-pic-small" src="${
-            image.user.profile_image.small
-          }" alt="">
-          <p class="img-author">by ${image.user.first_name} ${
+    <div id="img-${i}" class="overlay">
+    <i class="fa-solid fa-expand"></i>
+    <a href="${image.user.links.html}" class="author-wrapper">
+    <img class="profile-pic-small" src="${
+      image.user.profile_image.small
+    }" alt="">
+    <p class="img-author">by ${image.user.first_name} ${
       image.user.last_name
     }</p>
-          </a>
-          </div>
+    </a>
+    </div>
     `;
 
-    let currentImage = document.getElementById(`img-${i}`);
+    gallery.append(imgContainer);
+    imgCounter++;
+
+    let currentImage = document.getElementById(`img-${imgCounter}`);
     currentImage.addEventListener('click', () => {
       displayModal(image);
     });
@@ -140,4 +134,13 @@ function getImages() {
       allImagesArray = data;
       displayImages(allImagesArray);
     });
+}
+
+function infiniteScroll() {
+  const endOfPage =
+    window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+
+  if (endOfPage) {
+    getImages();
+  }
 }

@@ -12,6 +12,7 @@ gridBtn.addEventListener('click', showGrid);
 
 let allImagesArray;
 const defaultAltDescription = 'Image from Unsplash.com';
+let imgCounter = 0;
 
 getImages();
 
